@@ -4,16 +4,18 @@ import (
 	"fmt"
 	"flag"
 	"os"
-	"io/ioutil"
 	"log"
-	"path/filepath"
 	"path"
 	"image"
-	"image/png"
-	"image/jpeg"
-	"github.com/nfnt/resize"
 	"sync"
 	"strings"
+
+	"io/ioutil"
+	"path/filepath"
+	"image/png"
+	"image/jpeg"
+
+	"github.com/nfnt/resize"
 )
 
 var wg sync.WaitGroup
