@@ -39,7 +39,7 @@ func isValid(path string) bool {
 	return false
 }
 
-func processImage(imagePath string, outputPath string, imageHeight int, imageWidth int, ch chan struct{}) error {
+func processImage(imagePath string, outputPath string, imageHeight int, imageWidth int, ch chan struct{}) {
 	if imageHeight == 0 && imageWidth == 0 {
 		imageHeight = 720
 	}
@@ -94,8 +94,6 @@ func processImage(imagePath string, outputPath string, imageHeight int, imageWid
 	case ".jpg":
 		jpeg.Encode(output, newImage, nil)
 	}
-
-	return nil
 }
 
 func getFiles(input string) []string {
