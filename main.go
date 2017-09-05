@@ -36,8 +36,8 @@ func isValid(path string) bool {
 	return false
 }
 
-func processImage(imagePath string, outputPath string, imageHeight int) error {
-	if imageHeight == 0 {
+func processImage(imagePath string, outputPath string, imageHeight int, imageWidth int) error {
+	if imageHeight == 0 && imageWidth == 0 {
 		imageHeight = 720
 	}
 
@@ -64,7 +64,7 @@ func processImage(imagePath string, outputPath string, imageHeight int) error {
 		log.Fatal(err)
 	}
 
-	newImage := resize.Resize(0, uint(imageHeight), img, resize.Lanczos3)
+	newImage := resize.Resize(uint(imageWidth), uint(imageHeight), img, resize.Lanczos3)
 
 	fmt.Printf("Processing %s\n", filepath.Base(file.Name()))
 	output, err := os.Create(path.Join(outputPath, filepath.Base(file.Name())))
@@ -88,7 +88,8 @@ func processImage(imagePath string, outputPath string, imageHeight int) error {
 }
 
 func main() {
-	fileHeight := flag.Int("height", 720, "resize the image to the specified height while retaining aspect ratio")
+	fileHeight := flag.Int("height", 0, "resize the image to the specified height while retaining aspect ratio")
+	fileWidth := flag.Int("width", 0, "resize the image to the specified width while retaining aspect ratio")
 	inputPath := flag.String("i", "./", "set input path, could be a folder or a image file")
 	outputPath := flag.String("o", "./output/", "set output path")
 	flag.Parse()
@@ -127,7 +128,7 @@ func main() {
 
 	for _, filePath := range files {
 		wg.Add(1)
-		go processImage(filePath, *outputPath, *fileHeight)
+		go processImage(filePath, *outputPath, *fileHeight, *fileWidth)
 	}
 
 	wg.Wait()
