@@ -4,10 +4,14 @@ Image resizer command line tool. I shall use this for my blog images before uplo
 
 ### Usage
 ```bash
+# install dep
+go get -u github.com/golang/dep/cmd/dep
+
+# go get img-rszr :D
 go get github.com/dcefram/imgr-rszr
 
 # cd to imgr-rszr
-
+dep ensure
 go install
 
 # If you have your /go/bin included in your path, you can do this:
